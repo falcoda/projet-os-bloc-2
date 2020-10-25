@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1603353045 source:/home/coda/Bureau/projet 2/main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
