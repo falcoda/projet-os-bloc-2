@@ -4,3 +4,69 @@
 	<stdlib.h>
 	<time.h>
 
+1607789631 source:/home/coda/git_workspace/projet-os-bloc-2/main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<sys/wait.h>
+	<sys/shm.h>
+	<sys/stat.h>
+	<semaphore.h>
+	<pthread.h>
+	<errno.h>
+	"rand.h"
+	"voiture.h"
+
+1607782345 /home/coda/git_workspace/projet-os-bloc-2/rand.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<sys/wait.h>
+	<sys/shm.h>
+	<sys/stat.h>
+	<semaphore.h>
+	<pthread.h>
+	<errno.h>
+
+1607781493 /home/coda/git_workspace/projet-os-bloc-2/voiture.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<sys/wait.h>
+	<sys/shm.h>
+	<sys/stat.h>
+	<semaphore.h>
+	<pthread.h>
+	<errno.h>
+
+1607789494 source:/home/coda/git_workspace/projet-os-bloc-2/rand.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<sys/wait.h>
+	<sys/shm.h>
+	<sys/stat.h>
+	<semaphore.h>
+	<pthread.h>
+	<errno.h>
+
+1607781493 source:/home/coda/git_workspace/projet-os-bloc-2/voiture.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<sys/wait.h>
+	<sys/shm.h>
+	<sys/stat.h>
+	<semaphore.h>
+	<pthread.h>
+	<errno.h>
+
+1607789677 /home/coda/git_workspace/projet-os-bloc-2/rand.h
+
+1607782975 /home/coda/git_workspace/projet-os-bloc-2/voiture.h
+

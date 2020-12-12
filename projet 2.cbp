@@ -34,6 +34,11 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="rand.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rand.h" />
+		<Unit filename="voiture.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
