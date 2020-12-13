@@ -12,7 +12,7 @@
 
 
 double printRandoms(){  //nombre allératoire qui défini le temps d'un secteur
-    srand(time(NULL)^ getpid());
+
     double random_value = 0;
     //for (int i=0;i<20;i++){
     random_value = (double)rand()/(double)RAND_MAX*(20.00)+25.00;//float in range 25 to 45
@@ -39,7 +39,7 @@ int out(tauxDeCrash){  //permet de dire si se crash ou non
 }
 
 int stand(tauxDeStand){  //permet de dire si va au stand ou pas
-    srand(time(NULL)^ getpid());
+
     int crash = myRandom(1,100);
     //printf("%d\n", crash);
     if (crash <= tauxDeStand){
@@ -50,8 +50,8 @@ int stand(tauxDeStand){  //permet de dire si va au stand ou pas
     }
 }
 
-int tempsStand(){ //temps d'arrêt au stand (entre 25 et 45 s)
-    srand(time(NULL)^ getpid());
+double tempsStand(){ //temps d'arrêt au stand (entre 25 et 45 s)
+
     double temps =0;
     temps = (double)rand()/(double)RAND_MAX*(20.00)+25.00;//float in range 25 to 45
     //printf("%f\n", temps);
