@@ -6,8 +6,11 @@
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <semaphore.h>
+#include <sys/sem.h>
 #include <pthread.h>
+#include <sys/types.h>
 #include <errno.h>
+#include <sys/ipc.h>
 #include "rand.h"
 #include "voiture.h"
 #include "cirquit.h"
@@ -23,9 +26,9 @@ int sem_post(sem_t *sem);
 
 int main(int argc, char**argv)
 {
-
-
     maVoiture voitureEnMem[20]; //tableau de voitures
+
+
     /* initialisation de la mémoire partagée */
 
 
@@ -41,7 +44,7 @@ int main(int argc, char**argv)
 
     /* Écrit une chaîne dans le segment de mémoire partagée. */
     sprintf (shared_memory , "Hello, world.");
-    memcpy(voitureEnMem, shared_memory , sizeof(maVoiture)*20);
+//    memcpy(voitureEnMem, shared_memory , sizeof(maVoiture)*20);
 
     /* affiche la chaine en mémoire partagée. */
     printf ("%s\n", shared_memory);
@@ -51,8 +54,7 @@ int main(int argc, char**argv)
 
    // pthread_t threads[MAXFORK];
     //int sem_init(&semaphore, PTHREAD_PROCESS_SHARED, 1);
-    char a ="";
-    printf("lolol %d",strlen("semy"));
+
 
 
 
@@ -77,60 +79,11 @@ int main(int argc, char**argv)
 
     }
     //rouler();
+    sleep(1);
+    lancerCourse(20,45.0,voitureEnMem);
+    sleep(2);
 
 
-
-
-    int pid[MAXFORK];
-    int i,j;
-    int fini;
-
-    for(i=0; i < MAXFORK ; i++){
-
-        pid[i] = fork() ;
-        if(pid[i]== -1){
-            printf("Impossible de créer un fils (%d)\n",i);
-        }
-        else if(pid[i]==0){ // FILS
-            //pthread_join(threads[i], NULL);
-            //faire les tours
-            sprintf (shared_memory , "je suis un des fils \n");
-            sleep(1);
-            //printf("Fils %2d (PID=%d): Activé\n",i,getpid());
-            fflush(stdout);
-            rouler();
-            exit(0);
-            fflush(stdout);
-
-        }
-        else {
-            //printf("Pere : Activation du fils %2d\n", i);
-            fflush(stdout);
-        }
-
-    }
-
-    //printf("Père : Fin des activations\nAttente ...\n");
-    fflush(stdout);
-    fini=0;
-    while (!fini) {
-    fini=1;
-    for(i=0;i<MAXFORK;i++){
-      if (pid[i]>0) {
-        if (waitpid(pid[i],NULL,WNOHANG)==0) {
-          //printf("Père: fin du fils %2d (PID=%d)\n", i, pid[i]);
-          fflush(stdout);
-          pid[i]=0;
-        }
-      } else {
-        fini=0;
-      }
-    }
-    }
-
-
-  //printf("Fin de tous les fils.");
-  fflush(stdout);
 
 
 
@@ -138,10 +91,4 @@ int main(int argc, char**argv)
 }
 
 
-
-
-
-/*=======================================================
-Création des fonctions Sémaphore
-=========================================================*/
 
