@@ -4,8 +4,9 @@ struct maVoiture{
     double S1 ;
     double S2 ;  // temps des secteurs
     double S3 ;
-    double tempsTotal; //temps total
+    double tempsTotal; //temps depuis le quel les voitures roules
     int stand ; // si présent au stand
-    int out ; // 0 = abandon
+    int out ; // 1 = crashé
+    double meilleurTemps;  // meilleur temps de tour
 
 };
