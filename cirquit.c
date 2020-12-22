@@ -61,51 +61,7 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
     }
     initSem();
 
-
-/* ==========================================
-
-Vendredi matin séance d'essais libre d'1h30 (P1)
-
-=============================================*/
-
-
-
-
-
-/* ==========================================
-
-Vendredi après midi séance d'essais libre d'1h30 (P2)
-
-=============================================*/
-
-
-
-
-/* ==========================================
-
-Samedi matin séance d'essais libre d'1h (P3)
-
-=============================================*/
-
-
-
-
-/* ==========================================
-
-Samedi après midi séance de qualification en 3 parties
-
-Q1, durée 18 minutes => élimine 5 voitures
-Q1, durée 15 minutes => élimine 5 voitures
-Q3, durée 12 minutes => classe les 10 dernières voitures
-
-=============================================*/
-
-
-/* ==========================================
-
-Dimanche après midi la course en elle même
-
-=============================================*/
+    //==============Sémaphores + mémoire partagée + fork
 
     int pid[MAXFORK];
     int k,l;
@@ -137,10 +93,11 @@ Dimanche après midi la course en elle même
             circuit[k].stand = 0;                       //met la voiture à stand = 0 => pas au stand
             circuit[k].tempsTotal = 0;                  //défini le temps total à 0 (début de la course)
             circuit[k].meilleurTemps = 0.0;             //défini le meilleur temps d'un tour à 0
+            circuit[k].meilleurTemps = 999.9;           // défini le meilleur temps à 999
 
             while(circuit[k].out == 0 && circuit[k].tempsTotal < raceTime){
                 tempsAuStand = 0.0 ;                    // défini le temps passé au stand à 0
-                circuit[k].meilleurTemps = 999.9;       // défini le meilleur temps à 999
+
                 S1 = printRandoms() ;
                 S2 = printRandoms() ;                   //enregistre un temps de secteur
                 S3 = printRandoms() ;
@@ -151,12 +108,11 @@ Dimanche après midi la course en elle même
                 }
                 else if (out(CRASH)==1){                //génère un nombre alléatoire, si il est = à 1, la voiture se crash
                     wait(1);
-                    circuit[k].meilleurTemps = tourComplet;    // si la voiture se crash on enregistre les données du dernier tour
                     circuit[k].out = 1 ;
                     circuit[k].S1 = S1;
                     circuit[k].S2 = S2 ;
                     circuit[k].S3 = S3;
-                    printf("out \n");
+                    printf("out %d\n",circuit[k].numero);
                     post(1);
                     exit(0);
                 }
@@ -174,11 +130,14 @@ Dimanche après midi la course en elle même
                     circuit[k].S3 = S3;
 
                     post(1);
+
                 }
                 //printf("Fils %2d (PID=%d): Active\n",k,getpid());
+
             }
             //printf("Temps total : %f\n",circuit[k].tempsTotal);
             printf("Meilleur Temps  de %d: %f\n",circuit[k].numero,circuit[k].meilleurTemps);
+
             exit(0);
             fflush(stdout);
         }
@@ -211,4 +170,6 @@ Dimanche après midi la course en elle même
 
 
     }
+     memcpy(pilotes,circuit,20*sizeof(struct maVoiture)); //permet de faire la copie en mémoire
+
 }

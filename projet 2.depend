@@ -4,21 +4,10 @@
 	<stdlib.h>
 	<time.h>
 
-1608318144 source:/home/coda/git_workspace/projet-os-bloc-2/main.c
+1608643817 source:/home/coda/git_workspace/projet-os-bloc-2/main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
-	<unistd.h>
-	<sys/wait.h>
-	<sys/shm.h>
-	<sys/stat.h>
-	<semaphore.h>
-	<sys/sem.h>
-	<pthread.h>
-	<sys/types.h>
-	<errno.h>
-	<sys/ipc.h>
-	"rand.h"
 	"voiture.h"
 	"cirquit.h"
 
@@ -74,7 +63,7 @@
 
 1608314377 /home/coda/git_workspace/projet-os-bloc-2/voiture.h
 
-1608318307 source:/home/coda/git_workspace/projet-os-bloc-2/cirquit.c
+1608643777 source:/home/coda/git_workspace/projet-os-bloc-2/cirquit.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
