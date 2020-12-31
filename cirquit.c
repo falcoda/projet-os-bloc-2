@@ -143,6 +143,7 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
         }
 
         else {
+        usleep(1);
             //printf("Pere : Activation du fils %2d\n", i);
             fflush(stdout);
            //printf("Père : Fin des activations\nAttente ...\n");
@@ -181,55 +182,55 @@ int creationFichier(int nbreVoiture,struct maVoiture pilotes[20]){
     fichier = fopen("Essai.txt", "w+");
     if (fichier != NULL){
         //Debut de l'ecriture
-        fprintf(fichier,"|N°\t|S1\t\t|S2\t\t|S3\t\t|Tour\t\t|Best\t\t|PIT\t|OUT\t|\n");
+        fprintf(fichier,"N°\tS1\tS2\tS3\tTour\t\tBest\t\tPIT\tOUT\t\n");
         fprintf(fichier,"\n");
 
         for(int j = 0; j < nbreVoiture ; j++){
-            fprintf(fichier,"|%d\t",pilotes[j].numero); //Imprimme le N°
+            fprintf(fichier,"%d\t",pilotes[j].numero); //Imprimme le N°
             if (pilotes[j].S1 == 0){ //Imprime le temps S1
-                fprintf(fichier,"|NULL\n");
+                fprintf(fichier,"NULL\n");
             }
             else{
-                fprintf(fichier,"|%.3f\n",pilotes[j].S1);
+                fprintf(fichier,"%.3f\t",pilotes[j].S1);
             }
             if (pilotes[j].S2 == 0){ //Imprime le temps S2
-                fprintf(fichier,"|NULL\n");
+                fprintf(fichier,"NULL");
             }
             else{
-                fprintf(fichier,"|%.3f\n",pilotes[j].S2);
+                fprintf(fichier,"%.3f\t",pilotes[j].S2);
             }
             if (pilotes[j].S3 == 0){ //Imprime le temps S3
-                fprintf(fichier,"|NULL\n");
+                fprintf(fichier,"NULL\t");
             }
             else{
-                fprintf(fichier,"|%.3f\t",pilotes[j].S3);
+                fprintf(fichier,"%.3f\t",pilotes[j].S3);
             }
             if (pilotes[j].tempsTotal == 0){ //Imprime le temps du tour
-                fprintf(fichier,"|NULL\t\t");
+                fprintf(fichier,"NULL\t\t");
             }
             else if(pilotes[j].tempsTotal<100.000){
-                fprintf(fichier,"|%.3f\t\t",pilotes[j].tempsTotal);
+                fprintf(fichier,"%.3f\t",pilotes[j].tempsTotal);
             }
             else{
-                fprintf(fichier,"|%.3f\t",pilotes[j].tempsTotal);
+                fprintf(fichier,"%.3f\t",pilotes[j].tempsTotal);
             }
             if (pilotes[j].meilleurTemps < 100.000){ //Imprimme le meilleur temps
-                fprintf(fichier,"|%.3f\t\t",pilotes[j].meilleurTemps);
+                fprintf(fichier,"%.3f\t\t",pilotes[j].meilleurTemps);
             }
             else{
-                fprintf(fichier,"|%.3f\t",pilotes[j].meilleurTemps);
+                fprintf(fichier,"%.3f\t",pilotes[j].meilleurTemps);
             }
             if(pilotes[j].stand != 0){ //Imprime le nombre de pit du pilote
-                fprintf(fichier,"|%d\t",pilotes[j].stand);
+                fprintf(fichier,"%d\t",pilotes[j].stand);
             }
             else{
-                fprintf(fichier,"|0\t");
+                fprintf(fichier,"0\t");
             }
             if(pilotes[j].out == 1){ //Imprimme si le pilote est out
-                fprintf(fichier,"|X\t|\n");
+                fprintf(fichier,"X\t\n");
             }
             else{
-            fprintf(fichier,"|\t|\n");
+            fprintf(fichier,"\t\n");
             }
         }//Fin ecriture
     fclose(fichier);
