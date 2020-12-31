@@ -7,6 +7,6 @@
 
 double printRandoms();
 int out();
-int stand(tauxDeStand);
+int stand(int tauxDeStand);
 double tempsStand();
 int myRandom(int nbreMin, int nbreMax);

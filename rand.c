@@ -11,7 +11,7 @@
 
 
 
-double printRandoms(){  //nombre allératoire qui défini le temps d'un secteur
+double printRandoms(){  //nombre aléatoire qui définit le temps d'un secteur
 
     double random_value = 0;
     //for (int i=0;i<20;i++){

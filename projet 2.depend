@@ -77,3 +77,41 @@
 
 1607866916 /home/coda/git_workspace/projet-os-bloc-2/cirquit.h
 
+1609345070 source:/home/chris/Bureau/Projet OS 2e/projet-os-bloc-2-main/cirquit.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<sys/wait.h>
+	<sys/shm.h>
+	<sys/stat.h>
+	<semaphore.h>
+	<sys/sem.h>
+	"voiture.h"
+	"rand.h"
+
+1608643964 /home/chris/Bureau/Projet OS 2e/projet-os-bloc-2-main/voiture.h
+
+1609344894 /home/chris/Bureau/Projet OS 2e/projet-os-bloc-2-main/rand.h
+
+1609352828 source:/home/chris/Bureau/Projet OS 2e/projet-os-bloc-2-main/main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	"voiture.h"
+	"cirquit.h"
+
+1609353112 /home/chris/Bureau/Projet OS 2e/projet-os-bloc-2-main/cirquit.h
+
+1609328367 source:/home/chris/Bureau/Projet OS 2e/projet-os-bloc-2-main/rand.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<sys/wait.h>
+	<sys/shm.h>
+	<sys/stat.h>
+	<semaphore.h>
+	<pthread.h>
+	<errno.h>
+
