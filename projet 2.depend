@@ -4,10 +4,11 @@
 	<stdlib.h>
 	<time.h>
 
-1608643817 source:/home/coda/git_workspace/projet-os-bloc-2/main.c
+1609414221 source:/home/coda/git_workspace/projet-os-bloc-2/main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
+	<unistd.h>
 	"voiture.h"
 	"cirquit.h"
 
@@ -35,7 +36,7 @@
 	<pthread.h>
 	<errno.h>
 
-1608314227 source:/home/coda/git_workspace/projet-os-bloc-2/rand.c
+1609414221 source:/home/coda/git_workspace/projet-os-bloc-2/rand.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -59,11 +60,11 @@
 	<pthread.h>
 	<errno.h>
 
-1608314175 /home/coda/git_workspace/projet-os-bloc-2/rand.h
+1609414221 /home/coda/git_workspace/projet-os-bloc-2/rand.h
 
-1608314377 /home/coda/git_workspace/projet-os-bloc-2/voiture.h
+1609414221 /home/coda/git_workspace/projet-os-bloc-2/voiture.h
 
-1608643777 source:/home/coda/git_workspace/projet-os-bloc-2/cirquit.c
+1609414669 source:/home/coda/git_workspace/projet-os-bloc-2/cirquit.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -75,7 +76,7 @@
 	"voiture.h"
 	"rand.h"
 
-1607866916 /home/coda/git_workspace/projet-os-bloc-2/cirquit.h
+1609414221 /home/coda/git_workspace/projet-os-bloc-2/cirquit.h
 
 1609345070 source:/home/chris/Bureau/Projet OS 2e/projet-os-bloc-2-main/cirquit.c
 	<stdio.h>

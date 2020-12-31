@@ -143,7 +143,9 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
         }
 
         else {
+
         usleep(1);
+        memcpy(pilotes,circuit,20*sizeof(struct maVoiture)); //permet de faire la copie en mémoire
             //printf("Pere : Activation du fils %2d\n", i);
             fflush(stdout);
            //printf("Père : Fin des activations\nAttente ...\n");
@@ -170,7 +172,7 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
 
 
     }
-    memcpy(pilotes,circuit,20*sizeof(struct maVoiture)); //permet de faire la copie en mémoire
+
 
 }
 
