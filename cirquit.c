@@ -105,6 +105,7 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
                 if(stand(TAUX_DE_STAND)==1){            //génère un nombre alléatoire, si il est = à 1, la voiture va au stand
                     tempsAuStand =tempsStand();         //gènère le temps en secondes que la voiture va passer au stand
                     //printf("temps au stand %f \n",tempsAuStand);
+                    circuit[k].stand += 1;            //on ajoute le passage au pit
                 }
                 else if (out(CRASH)==1){                //génère un nombre aléatoire, si il est = à 1, la voiture se crash
                     wait(1);
@@ -137,7 +138,6 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
             }
             //printf("Temps total : %f\n",circuit[k].tempsTotal);
             printf("Meilleur Temps de %d: %f\n",circuit[k].numero,circuit[k].meilleurTemps);
-
             exit(0);
             fflush(stdout);
         }
@@ -180,7 +180,6 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
 //Creer les fichiers pour sauvegarder les resultats
 int creationFichier(int nbreVoiture,struct maVoiture pilotes[20]){
     FILE* fichier = NULL;
-
     fichier = fopen("Essai.txt", "w+");
     if (fichier != NULL){
         //Debut de l'ecriture
