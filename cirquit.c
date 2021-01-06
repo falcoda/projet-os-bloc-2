@@ -87,7 +87,7 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
                 printf("Erreur shmat = -1");
                 exit(1);
             }
-//=================================================TEST!!!!!=====================
+
             circuit[k].out = 0;                         // met la voiture à crash = 0 => elle roule
             circuit[k].numero = mesVoitures[k];      // donne l'id de la voiture
             circuit[k].stand = 0;                       //met la voiture à stand = 0 => pas au stand
@@ -106,6 +106,7 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
                     tempsAuStand =tempsStand();         //gènère le temps en secondes que la voiture va passer au stand
                     //printf("temps au stand %f \n",tempsAuStand);
                     circuit[k].stand += 1;            //on ajoute le passage au pit
+                    circuit[k].tempsTotal += tempsAuStand ;
                 }
                 else if (out(CRASH)==1){                //génère un nombre aléatoire, si il est = à 1, la voiture se crash
                     wait(1);
@@ -142,7 +143,7 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
             fflush(stdout);
         }
 
-        else {
+        else { //fermeture des fils
 
         usleep(1);
         memcpy(pilotes,circuit,20*sizeof(struct maVoiture)); //permet de faire la copie en mémoire
@@ -178,7 +179,7 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
 
 
 //Creer les fichiers pour sauvegarder les resultats
-int creationFichier(int nbreVoiture,struct maVoiture pilotes[20]){
+int creationFichier(int nbreVoiture,struct maVoiture pilotes[20],int numeroCourse){
     FILE* fichier = NULL;
     fichier = fopen("Essai.txt", "w+");
     if (fichier != NULL){
