@@ -138,7 +138,7 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
 
             }
             //printf("Temps total : %f\n",circuit[k].tempsTotal);
-            printf("Meilleur Temps de %d: %f\n",circuit[k].numero,circuit[k].meilleurTemps);
+            //printf("Meilleur Temps de %d: %f\n",circuit[k].numero,circuit[k].meilleurTemps);
             exit(0);
             fflush(stdout);
         }
