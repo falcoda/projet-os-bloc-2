@@ -180,8 +180,23 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
 
 //Creer les fichiers pour sauvegarder les resultats
 int creationFichier(int nbreVoiture,struct maVoiture pilotes[20],int numeroCourse){
+    triDuTableau(pilotes, 20); //tri a bulle
     FILE* fichier = NULL;
-    fichier = fopen("Essai.txt", "w+");
+    if (numeroCourse == 1){
+        fichier = fopen("courses/CourseP1.txt", "w+");
+    }
+    else if (numeroCourse == 2){
+        fichier = fopen("courses/CourseP2.txt", "w+");
+    }
+    else if (numeroCourse == 3){
+        fichier = fopen("courses/CourseP3.txt", "w+");
+    }
+    else if (numeroCourse == 4){
+        fichier = fopen("courses/CourseQualif.txt", "w+");
+    }
+    else if (numeroCourse == 5){
+        fichier = fopen("courses/CourseFinale.txt", "w+");
+    }
     if (fichier != NULL){
         //Debut de l'ecriture
         fprintf(fichier,"N°\tS1\tS2\tS3\tTour\t\tBest\t\tPIT\tOUT\t\n");
@@ -240,24 +255,20 @@ int creationFichier(int nbreVoiture,struct maVoiture pilotes[20],int numeroCours
     return 0;
 }
 
-int triDuTableau (struct maVoiture tableau[20]){  // tri a bulle
+int triDuTableau (struct maVoiture tab2[20],int tailleDuTableau){  // tri a bulle
     int i,j,k;
     maVoiture memoireTbl;
-    int n = 100; // nombre d'itération du tableau pour qu'il soit trié
-    for(j = 1; j <= n ; j++){
-        for(i = 0 ; i < n-1 ; i++){
-            if (tableau[i].meilleurTemps > tableau[i+1].meilleurTemps )
-                {  //compare deux casse successive pour les échangés de place si l'ordre n'est pas le bon
-                memoireTbl = tableau[i]; //sauvegarde la case qui vas être écrasée par la valeur plus petite
-                printf("%s" , memoireTbl);
-                tableau[i] = tableau[i+1];
-                tableau[i+1] = memoireTbl;
+    for(j = 1; j <= tailleDuTableau ; j++){
+        for(i = 0 ; i < tailleDuTableau - 1 ; i++){
+            if (tab2[i].meilleurTemps > tab2[i+1].meilleurTemps ) {  //compare deux casse successive pour les échangés de place si l'ordre n'est pas le bon
+                memoireTbl = tab2[i]; //sauvegarde la case qui vas être écrasée par la valeur plus petite
+                tab2[i] = tab2[i+1];
+                tab2[i+1] = memoireTbl;
             }
         }
     }
-    for(k = 0 ; k < 20 ; k++){
-        printf("%f", tableau[k].meilleurTemps);
-    }
-    return 0;
+    //for(k = 0 ; k < 20 ; k++){
+        //printf("%f \n", tab2[k].meilleurTemps);
+    return tab2;
 
 }

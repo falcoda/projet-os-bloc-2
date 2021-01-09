@@ -41,6 +41,8 @@ Vendredi matin séance d'essais libre d'1h30 (P1)
     lancerCourse(nbreVoiture,900.0,voitureEnMem);
     creationFichier(nbreVoiture,voitureEnMem,2);
     sleep(1);
+    triDuTableau(voitureEnMem, 20);
+
 
 
 
@@ -71,7 +73,7 @@ Samedi matin séance d'essais libre d'1h (P3)
 Samedi après midi séance de qualification en 3 parties
 
 Q1, durée 18 minutes => élimine 5 voitures
-Q1, durée 15 minutes => élimine 5 voitures
+Q2, durée 15 minutes => élimine 5 voitures
 Q3, durée 12 minutes => classe les 10 dernières voitures
 
 =============================================*/
@@ -81,11 +83,13 @@ Q3, durée 12 minutes => classe les 10 dernières voitures
     creationFichier(nbreVoiture,voitureEnMem,5);
     sleep(1);
 
+    //triDuTableau(voitureEnMem, 20);
     nbreVoiture -= 5;
     lancerCourse(nbreVoiture,150.0,voitureEnMem);  //15 minutes
     creationFichier(nbreVoiture,voitureEnMem,5);
     sleep(1);
 
+    //triDuTableau(voitureEnMem, 15);
     nbreVoiture -= 5;
     lancerCourse(nbreVoiture,120.0,voitureEnMem);  //12 minutes
     creationFichier(nbreVoiture,voitureEnMem,5);
@@ -95,10 +99,15 @@ Q3, durée 12 minutes => classe les 10 dernières voitures
 Dimanche après midi la course en elle même
 
 =============================================*/
+    triDuTableau(voitureEnMem, 10);
+    for(int k = 0 ; k < 20 ; k++){
+        printf("%f \n", voitureEnMem[k].meilleurTemps);
+        }
+
+    triDuTableau(voitureEnMem, 10);
     lancerCourse(nbreVoiture,longueurTours*nbreTours,voitureEnMem);  //nbre de tours * nbre mayen du tour en minute
     creationFichier(nbreVoiture,voitureEnMem,6);
     sleep(1);
-    triDuTableau(voitureEnMem);
 
 
     return 0;
