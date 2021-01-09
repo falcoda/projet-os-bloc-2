@@ -239,3 +239,25 @@ int creationFichier(int nbreVoiture,struct maVoiture pilotes[20],int numeroCours
     }
     return 0;
 }
+
+int triDuTableau (struct maVoiture tableau[20]){  // tri a bulle
+    int i,j,k;
+    maVoiture memoireTbl;
+    int n = 100; // nombre d'itération du tableau pour qu'il soit trié
+    for(j = 1; j <= n ; j++){
+        for(i = 0 ; i < n-1 ; i++){
+            if (tableau[i].meilleurTemps > tableau[i+1].meilleurTemps )
+                {  //compare deux casse successive pour les échangés de place si l'ordre n'est pas le bon
+                memoireTbl = tableau[i]; //sauvegarde la case qui vas être écrasée par la valeur plus petite
+                printf("%s" , memoireTbl);
+                tableau[i] = tableau[i+1];
+                tableau[i+1] = memoireTbl;
+            }
+        }
+    }
+    for(k = 0 ; k < 20 ; k++){
+        printf("%f", tableau[k].meilleurTemps);
+    }
+    return 0;
+
+}

@@ -98,6 +98,7 @@ Dimanche après midi la course en elle même
     lancerCourse(nbreVoiture,longueurTours*nbreTours,voitureEnMem);  //nbre de tours * nbre mayen du tour en minute
     creationFichier(nbreVoiture,voitureEnMem,6);
     sleep(1);
+    triDuTableau(voitureEnMem);
 
 
     return 0;
