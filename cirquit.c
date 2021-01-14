@@ -59,6 +59,22 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
         shmbuffer.sem_flg = SEM_UNDO;
         semop(semId, &shmbuffer, 1);
     }
+    void commencerLecture(){ //Debut section critique
+        wait(0);
+        nbLecteur++;
+        if (nbLecteur == 1) {
+            wait(1);
+        }
+        post(0);
+    }
+    void arreterLecture(){ //Fin section critique
+        wait(0);
+        nbLecteur--;
+        if (nbLecteur == 0) {
+            post(1);
+        }
+        post(0);
+    }
     initSem();
 
     //==============Sémaphores + mémoire partagée + fork
@@ -146,22 +162,24 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
         else { //fermeture des fils
 
         usleep(1);
-        memcpy(pilotes,circuit,20*sizeof(struct maVoiture)); //permet de faire la copie en mémoire
+        //commencerLecture();
+        memcpy(pilotes,circuit,nbreVoiture*sizeof(struct maVoiture)); //permet de faire la copie en mémoire
+        //arreterLecture();
             //printf("Pere : Activation du fils %2d\n", i);
-            fflush(stdout);
+        fflush(stdout);
            //printf("Père : Fin des activations\nAttente ...\n");
 
-            for(i=0;i<MAXFORK;i++){
-              if (pid[i]>0) {
-                if (waitpid(pid[i],NULL,WNOHANG)==0) {
-                  //printf("Père: fin du fils %2d (PID=%d)\n", i, pid[i]);
-                  fflush(stdout);
-                  pid[i]=0;
-                }
-              } else {
-                fini=0;
-              }
+        for(i=0;i<MAXFORK;i++){
+          if (pid[i]>0) {
+            if (waitpid(pid[i],NULL,WNOHANG)==0) {
+              //printf("Père: fin du fils %2d (PID=%d)\n", i, pid[i]);
+              fflush(stdout);
+              pid[i]=0;
             }
+          } else {
+            fini=0;
+          }
+        }
 
 
 
@@ -180,7 +198,7 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
 
 //Creer les fichiers pour sauvegarder les resultats
 int creationFichier(int nbreVoiture,struct maVoiture pilotes[20],int numeroCourse){
-    triDuTableau(pilotes, 20); //tri a bulle
+    triDuTableau(pilotes, nbreVoiture); //tri a bulle
     FILE* fichier = NULL;
     if (numeroCourse == 1){
         fichier = fopen("courses/CourseP1.txt", "w+");
@@ -199,22 +217,22 @@ int creationFichier(int nbreVoiture,struct maVoiture pilotes[20],int numeroCours
     }
     if (fichier != NULL){
         //Debut de l'ecriture
-        fprintf(fichier,"N°\tS1\tS2\tS3\tTour\t\tBest\t\tPIT\tOUT\t\n");
+        fprintf(fichier,"N°\tS1\tS2\tS3\tTemps en piste\tBest\t\tPIT\tOUT\t\n");
         fprintf(fichier,"\n");
 
         for(int j = 0; j < nbreVoiture ; j++){
             fprintf(fichier,"%d\t",pilotes[j].numero); //Imprimme le N°
             if (pilotes[j].S1 == 0){ //Imprime le temps S1
-                fprintf(fichier,"NULL\n");
+                fprintf(fichier,"NULL|\n");
             }
             else{
-                fprintf(fichier,"%.3f\t",pilotes[j].S1);
+                fprintf(fichier,"%.3f|",pilotes[j].S1);
             }
             if (pilotes[j].S2 == 0){ //Imprime le temps S2
-                fprintf(fichier,"NULL");
+                fprintf(fichier,"NULL|");
             }
             else{
-                fprintf(fichier,"%.3f\t",pilotes[j].S2);
+                fprintf(fichier,"%.3f|",pilotes[j].S2);
             }
             if (pilotes[j].S3 == 0){ //Imprime le temps S3
                 fprintf(fichier,"NULL\t");
