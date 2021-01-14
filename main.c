@@ -14,16 +14,17 @@ int main(int argc, char**argv){
     int nbreTours = 60; //nombre tours
     int longueurTours = 5; //en Km
     int uneHeure = 600 ; //définir combient vaut 1h
-
+    int voitureQualif[20] ;
+    int voitureQualifFinale[10] ;
 
 
     int numero[20] = {44, 77, 16, 5, 33, 23, 55, 4, 3, 31, 10, 26, 11, 18, 7, 99, 20, 8, 63, 6};
     maVoiture voitureEnMem[20]; //tableau de voitures
     maVoiture qualif1[15];
     maVoiture qualif2[10];
-    for(int i = 0; i < 20 ; i++){ //Attribuer les id au tableau de voiture
+    /*for(int i = 0; i < 20 ; i++){ //Attribuer les id au tableau de voiture
         voitureEnMem[i].numero = numero[i];
-    }
+    }*/
 
 
 /* ==========================================
@@ -33,7 +34,7 @@ Vendredi matin séance d'essais libre d'1h30 (P1)
 =============================================*/
 
 
-    lancerCourse(nbreVoiture,900.0,voitureEnMem);
+    lancerCourse(nbreVoiture,900.0,voitureEnMem,numero);
     creationFichier(nbreVoiture,voitureEnMem,1);
     sleep(1);
     //triDuTableau(voitureEnMem, 20);
@@ -46,7 +47,7 @@ Vendredi matin séance d'essais libre d'1h30 (P1)
 Vendredi après midi séance d'essais libre d'1h30 (P2)
 
 =============================================*/
-    lancerCourse(nbreVoiture,900.0,voitureEnMem);
+    lancerCourse(nbreVoiture,900.0,voitureEnMem,numero);
     creationFichier(nbreVoiture,voitureEnMem,2);
     sleep(1);
 
@@ -57,7 +58,7 @@ Vendredi après midi séance d'essais libre d'1h30 (P2)
 Samedi matin séance d'essais libre d'1h (P3)
 
 =============================================*/
-    lancerCourse(nbreVoiture,600.0,voitureEnMem);
+    lancerCourse(nbreVoiture,600.0,voitureEnMem,numero);
     creationFichier(nbreVoiture,voitureEnMem,3);
     sleep(1);
 
@@ -73,38 +74,38 @@ Q3, durée 12 minutes => classe les 10 dernières voitures
 
 =============================================*/
 
-    lancerCourse(nbreVoiture,180.0,voitureEnMem);  //18 minutes
-    triDuTableau(voitureEnMem, nbreVoiture);
-    /*for(int k = 0 ; k < 20 ; k++){
-        printf("%f %d\n", voitureEnMem[k].meilleurTemps, voitureEnMem[k].numero);
-    }*/
-    printf("\n");
-    nbreVoiture -= 5;
-    /*for(int i = 0; i<nbreVoiture; i++){
-        qualif1[i] = voitureEnMem[i];
+    lancerCourse(nbreVoiture,180.0,voitureEnMem,numero);  //18 minutes => lance la qualification 1
+    triDuTableau(voitureEnMem, nbreVoiture);                                        //permet de trier le tableau
+    for(int i= 0 ; i< nbreVoiture; i ++){                       //enregistre les numéros de voitures qui sont qualifiés
+        voitureQualif[i] = voitureEnMem[i].numero ;
     }
-    for(int k = 0 ; k < 15 ; k++){
-        printf("%f %d\n", qualif1[k].meilleurTemps, qualif1[k].numero);
-    }*/
-    sleep(1);
+    printf("\nQualification 1\n");
+    affichage(nbreVoiture, voitureEnMem);
+    nbreVoiture -= 5;                                           //on supprime les 5 dernières voitures (le nombre de voitures est donc de 20-5 = 15)
+    sleep(2);
+    system("clear");
 
-
-    printf("\n");
-    lancerCourse(nbreVoiture,150.0,voitureEnMem);  //15 minutes
+    lancerCourse(nbreVoiture,150.0,voitureEnMem,voitureQualif);  //15 minutes => lance la qualification 2
     triDuTableau(voitureEnMem, nbreVoiture);
-    nbreVoiture -= 5;
-    /*for(int j = 0; j<nbreVoiture; j++){
-        qualif2[j] = qualif1[j];
+
+    for(int i= 0 ; i< nbreVoiture; i ++){
+        voitureQualifFinale[i] = voitureEnMem[i].numero ;
     }
-    for(int k = 0 ; k < 10 ; k++){
-        printf("%f %d\n", qualif2[k].meilleurTemps, qualif2[k].numero);
-    }*/
-    sleep(1);
+    printf("\nQualification 2\n");
+    affichage(nbreVoiture, voitureEnMem);
+    sleep(2);
+    system("clear");
+    nbreVoiture -= 5;
 
-
-    lancerCourse(nbreVoiture,120.0,voitureEnMem);  //12 minutes
+    lancerCourse(nbreVoiture,120.0,voitureEnMem,voitureQualifFinale);  //12 minutes
     creationFichier(nbreVoiture,voitureEnMem,4);
-    sleep(1);
+
+
+    printf("\nQualification 3\n");
+    affichage(nbreVoiture, voitureEnMem);
+    sleep(2);
+    system("clear");
+
 /* ==========================================
 
 Dimanche après midi la course en elle même
@@ -113,9 +114,11 @@ Dimanche après midi la course en elle même
 
 
     triDuTableau(voitureEnMem, nbreVoiture);
-    lancerCourse(nbreVoiture,longueurTours*nbreTours,voitureEnMem);  //nbre de tours * nbre moyen du tour en minutes
+    lancerCourse(nbreVoiture,longueurTours*nbreTours,voitureEnMem,voitureQualifFinale);  //nbre de tours * nbre moyen du tour en minutes
     creationFichier(nbreVoiture,voitureEnMem,5);
     sleep(1);
+    printf("\nQualification Finale\n");
+    affichage(nbreVoiture, voitureEnMem);
 
 
     return 0;

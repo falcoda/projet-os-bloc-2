@@ -13,18 +13,17 @@
 
 #define MAXFORK 20
 
-int mesVoitures[20] = {44, 77, 16, 5, 33, 23, 55, 4, 3, 31, 10, 26, 11, 18, 7, 99, 20, 8, 63, 6};
 
 /*=======================================================
 Création des fonctions Sémaphore
 =========================================================*/
-void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
+void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20],int mesVoitures[20]){
     int i ;
     int shmId;
     int semId;
     struct sembuf shmbuffer;
     int nbLecteur;
-    //key_t key = ftok("/dev/null", 7);
+
     struct maVoiture *circuit; //Structure qui stocke les voitures actuellement en piste
     shmId = shmget(IPC_PRIVATE, 20*sizeof(struct maVoiture), IPC_CREAT|0666);
     if(shmId == -1){ //Erreur lors de la creation de la memoire partagee
@@ -37,13 +36,8 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
         exit(1);
     }
     void initSem(){ //Initalise le semaphore
-        //key_t semCle;
+
         semId = semget(IPC_PRIVATE, 2, IPC_CREAT | 0666);
-      /*  if( semCle < 0 )
-        {
-            printf("Erreur semid\n");
-            exit(0);
-        }*/
         semctl(semId, 0, SETVAL, 1);
         semctl(semId, 1, SETVAL, 1);
     }
@@ -105,7 +99,11 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
             }
 
             circuit[k].out = 0;                         // met la voiture à crash = 0 => elle roule
-            circuit[k].numero = mesVoitures[k];      // donne l'id de la voiture
+
+
+            circuit[k].numero = mesVoitures[k];         // donne l'id de la voiture
+
+
             circuit[k].stand = 0;                       //met la voiture à stand = 0 => pas au stand
             circuit[k].tempsTotal = 0;                  //défini le temps total à 0 (début de la course)
             circuit[k].meilleurTemps = 0.0;             //défini le meilleur temps d'un tour à 0
@@ -120,7 +118,6 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
 
                 if(stand(TAUX_DE_STAND)==1){            //génère un nombre alléatoire, si il est = à 1, la voiture va au stand
                     tempsAuStand =tempsStand();         //gènère le temps en secondes que la voiture va passer au stand
-                    //printf("temps au stand %f \n",tempsAuStand);
                     circuit[k].stand += 1;            //on ajoute le passage au pit
                     circuit[k].tempsTotal += tempsAuStand ;
                 }
@@ -130,31 +127,25 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
                     circuit[k].S1 = S1;
                     circuit[k].S2 = S2 ;
                     circuit[k].S3 = S3;
-                    printf("La voiture %d est out.\n",circuit[k].numero);
                     post(1);
                     exit(0);
                 }
 
-               // printf("random ?%f \n",S1);
 
                 circuit[k].tempsTotal +=S1+S2+S3 ;                   // calcule le temps total, temps depuis le quel les voitures roules
-                //printf("Temps total : %f\n",circuit[k].tempsTotal);
                 if((S1+S2+S3) < circuit[k].meilleurTemps){          // si le dernier tour est le tour le plus rapide
                     wait(2);
                     circuit[k].meilleurTemps = S1+S2+S3 +tempsAuStand;     //enregistre le meilleur temps
                     circuit[k].S1 = S1;
                     circuit[k].S2 = S2;                                     //enregistre les données de S1, S2, S3
-                    //printf("temps au S2 %f \n",circuit[k].S2);
                     circuit[k].S3 = S3;
 
                     post(2);
 
                 }
-                //printf("Fils %2d (PID=%d): Active\n",k,getpid());
 
             }
-            //printf("Temps total : %f\n",circuit[k].tempsTotal);
-            //printf("Meilleur Temps de %d: %f\n",circuit[k].numero,circuit[k].meilleurTemps);
+
             exit(0);
             fflush(stdout);
         }
@@ -162,17 +153,14 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
         else { //fermeture des fils
 
         usleep(1);
-        //commencerLecture();
+        commencerLecture();
         memcpy(pilotes,circuit,nbreVoiture*sizeof(struct maVoiture)); //permet de faire la copie en mémoire
-        //arreterLecture();
-            //printf("Pere : Activation du fils %2d\n", i);
+        arreterLecture();
         fflush(stdout);
-           //printf("Père : Fin des activations\nAttente ...\n");
 
         for(i=0;i<MAXFORK;i++){
           if (pid[i]>0) {
             if (waitpid(pid[i],NULL,WNOHANG)==0) {
-              //printf("Père: fin du fils %2d (PID=%d)\n", i, pid[i]);
               fflush(stdout);
               pid[i]=0;
             }
@@ -180,12 +168,8 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20]){
             fini=0;
           }
         }
-
-
-
-          //printf("Fin de tous les fils.");
-          fflush(stdout);
-                }
+      fflush(stdout);
+        }
 
 
 
@@ -268,8 +252,10 @@ int creationFichier(int nbreVoiture,struct maVoiture pilotes[20],int numeroCours
             fprintf(fichier,"\t\n");
             }
         }//Fin ecriture
+
     fclose(fichier);
     }
+
     return 0;
 }
 
@@ -285,8 +271,60 @@ int triDuTableau (struct maVoiture tab2[20],int tailleDuTableau){  // tri a bull
             }
         }
     }
-    //for(k = 0 ; k < 20 ; k++){
-        //printf("%f \n", tab2[k].meilleurTemps);
     return tab2;
+
+}
+
+int affichage(int nbreVoiture,maVoiture pilotes[20]){
+    printf("N°\tS1\tS2\tS3\tTemps en piste\tBest\t\tPIT\tOUT\t\n");
+    printf("\n");
+    for(int j = 0; j < nbreVoiture ; j++){
+            printf("%d\t",pilotes[j].numero); //Imprimme le N°
+            if (pilotes[j].S1 == 0){ //Imprime le temps S1
+                printf("NULL|\n");
+            }
+            else{
+                printf("%.3f|",pilotes[j].S1);
+            }
+            if (pilotes[j].S2 == 0){ //Imprime le temps S2
+                printf("NULL|");
+            }
+            else{
+                printf("%.3f|",pilotes[j].S2);
+            }
+            if (pilotes[j].S3 == 0){ //Imprime le temps S3
+                printf("NULL\t");
+            }
+            else{
+                printf("%.3f\t",pilotes[j].S3);
+            }
+            if (pilotes[j].tempsTotal == 0){ //Imprime le temps du tour
+                printf("NULL\t\t");
+            }
+            else if(pilotes[j].tempsTotal<100.000){
+                printf("%.3f\t",pilotes[j].tempsTotal);
+            }
+            else{
+                printf("%.3f\t",pilotes[j].tempsTotal);
+            }
+            if (pilotes[j].meilleurTemps < 100.000){ //Imprimme le meilleur temps
+                printf("\t%.3f\t\t",pilotes[j].meilleurTemps);
+            }
+            else{
+                printf("\t%.3f\t\t",pilotes[j].meilleurTemps);
+            }
+            if(pilotes[j].stand != 0){ //Imprime le nombre de pit du pilote
+                printf("%d\t",pilotes[j].stand);
+            }
+            else{
+                printf("0\t");
+            }
+            if(pilotes[j].out == 1){ //Imprimme si le pilote est out
+                printf("X\t\n");
+            }
+            else{
+            printf("\t\n");
+            }
+        }//Fin ecriture
 
 }

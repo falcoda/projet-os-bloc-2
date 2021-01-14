@@ -1,6 +1,6 @@
-#define CRASH 1 // taux de crash en %
+#define CRASH 10 // taux de crash en %
 #define NBR_TOURS 5
-#define TAUX_DE_STAND 10 //taux de % d'aller au stand
+#define TAUX_DE_STAND 80 //taux de % d'aller au stand
 #define TEMPS_MAX 45
 #define TEMPS_MIN 25
 
