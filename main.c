@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 #include "voiture.h"
-#include "cirquit.h"
+#include "circuit.h"
 
 
 
@@ -22,10 +22,6 @@ int main(int argc, char**argv){
     maVoiture voitureEnMem[20]; //tableau de voitures
     maVoiture qualif1[15];
     maVoiture qualif2[10];
-    /*for(int i = 0; i < 20 ; i++){ //Attribuer les id au tableau de voiture
-        voitureEnMem[i].numero = numero[i];
-    }*/
-
 
 /* ==========================================
 
@@ -83,7 +79,7 @@ Q3, durée 12 minutes => classe les 10 dernières voitures
     affichage(nbreVoiture, voitureEnMem);
     nbreVoiture -= 5;                                           //on supprime les 5 dernières voitures (le nombre de voitures est donc de 20-5 = 15)
     sleep(2);
-    system("clear");
+    //system("clear");
 
     lancerCourse(nbreVoiture,150.0,voitureEnMem,voitureQualif);  //15 minutes => lance la qualification 2
     triDuTableau(voitureEnMem, nbreVoiture);
@@ -94,7 +90,7 @@ Q3, durée 12 minutes => classe les 10 dernières voitures
     printf("\nQualification 2\n");
     affichage(nbreVoiture, voitureEnMem);
     sleep(2);
-    system("clear");
+    //system("clear");
     nbreVoiture -= 5;
 
     lancerCourse(nbreVoiture,120.0,voitureEnMem,voitureQualifFinale);  //12 minutes
@@ -104,7 +100,7 @@ Q3, durée 12 minutes => classe les 10 dernières voitures
     printf("\nQualification 3\n");
     affichage(nbreVoiture, voitureEnMem);
     sleep(2);
-    system("clear");
+    //system("clear");
 
 /* ==========================================
 

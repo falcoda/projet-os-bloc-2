@@ -31,10 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="cirquit.c">
+		<Unit filename="circuit.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="cirquit.h" />
+		<Unit filename="circuit.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -45,6 +45,9 @@
 		<Unit filename="voiture.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
+			<code_completion />
+			<envvars />
+			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
