@@ -172,7 +172,6 @@ void lancerCourse(int nbreVoiture,double raceTime,struct maVoiture pilotes[20],i
 
     }
 
-
 }
 
 
@@ -221,13 +220,16 @@ int creationFichier(int nbreVoiture,struct maVoiture pilotes[20],int numeroCours
                 fprintf(fichier,"%.3f\t",pilotes[j].S3);
             }
             if (pilotes[j].tempsTotal == 0){ //Imprime le temps du tour
-                fprintf(fichier,"NULL\t\t");
+                fprintf(fichier,"NULL\t\t\t");
             }
             else if(pilotes[j].tempsTotal<100.000){
+                fprintf(fichier,"%.3f\t\t\t",pilotes[j].tempsTotal);
+            }
+            else if(pilotes[j].tempsTotal>1000.000){
                 fprintf(fichier,"%.3f\t\t",pilotes[j].tempsTotal);
             }
             else{
-                fprintf(fichier,"%.3f\t\t",pilotes[j].tempsTotal);
+                fprintf(fichier,"%.3f\t\t\t",pilotes[j].tempsTotal);
             }
             if (pilotes[j].meilleurTemps < 100.000){ //Imprimme le meilleur temps
                 fprintf(fichier,"%.3f\t\t",pilotes[j].meilleurTemps);

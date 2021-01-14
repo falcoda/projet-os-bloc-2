@@ -78,8 +78,8 @@ Q3, durée 12 minutes => classe les 10 dernières voitures
     printf("\nQualification 1\n");
     affichage(nbreVoiture, voitureEnMem);
     nbreVoiture -= 5;                                           //on supprime les 5 dernières voitures (le nombre de voitures est donc de 20-5 = 15)
-    sleep(2);
-    //system("clear");
+    sleep(3);
+    system("clear");
 
     lancerCourse(nbreVoiture,150.0,voitureEnMem,voitureQualif);  //15 minutes => lance la qualification 2
     triDuTableau(voitureEnMem, nbreVoiture);
@@ -89,8 +89,8 @@ Q3, durée 12 minutes => classe les 10 dernières voitures
     }
     printf("\nQualification 2\n");
     affichage(nbreVoiture, voitureEnMem);
-    sleep(2);
-    //system("clear");
+    sleep(3);
+    system("clear");
     nbreVoiture -= 5;
 
     lancerCourse(nbreVoiture,120.0,voitureEnMem,voitureQualifFinale);  //12 minutes
@@ -99,8 +99,8 @@ Q3, durée 12 minutes => classe les 10 dernières voitures
 
     printf("\nQualification 3\n");
     affichage(nbreVoiture, voitureEnMem);
-    sleep(2);
-    //system("clear");
+    sleep(3);
+    system("clear");
 
 /* ==========================================
 
